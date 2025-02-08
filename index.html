@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartScaleAI Chatbot</title>
+</head>
+<body>
+    <h1>Welcome to SmartScaleAI</h1>
+    <p>Ask me anything!</p>
+    <input type="text" id="userInput" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+    <p id="response"></p>
+
+    <script>
+        function sendMessage() {
+            var message = document.getElementById("userInput").value;
+            fetch("http://18.117.93.236:5000/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ user_id: "12345", message: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("response").innerText = data.response;
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>
